@@ -7,7 +7,7 @@ function render(){
   const open=state?.status==='open';
   // Before the teacher starts (closed, no results, not yet voted), show only a waiting message.
   if(!q||!(open||state?.showResults===true||myChoice!=null)){
-    $('state').textContent='先生の案内をお待ちください';
+    $('state').textContent='まもなく始まります';
     $('question').textContent='今日の予想を、スマホから。';
     $('options').replaceChildren();
     return;
