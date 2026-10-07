@@ -4,8 +4,15 @@ const $=id=>document.getElementById(id);
 let api,state=null,connected=false,pending=false,myChoice=null,stopChoice=null;
 function render(){
   const q=byId[state?.questionId];
-  $('state').textContent=state?.status==='open'?'回答を受付中':q?'回答は締め切りました':'先生の案内をお待ちください';
-  if(!q)return;
+  const open=state?.status==='open';
+  // Before the teacher starts (closed, no results, not yet voted), show only a waiting message.
+  if(!q||!(open||state?.showResults===true||myChoice!=null)){
+    $('state').textContent='先生の案内をお待ちください';
+    $('question').textContent='今日の予想を、スマホから。';
+    $('options').replaceChildren();
+    return;
+  }
+  $('state').textContent=open?'回答を受付中':'回答は締め切りました';
   $('question').textContent=q.title;
   $('options').replaceChildren(...q.opts.map((label,i)=>{
     const button=document.createElement('button');button.className='choice';button.type='button';
