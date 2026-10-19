@@ -30,7 +30,7 @@ async function authorized(){
 }
 try{
   api=await connect('teacher');const {ref,set,update,get}=api.dbSDK;
-  $('environment').textContent=api.emulator?'ローカルエミュレータ · テスト用':api.test?'テスト部屋（本番とは別）':'本番 · 2026年10月7日 · 三輪田学園';
+  $('environment').textContent=api.emulator?'ローカルエミュレータ · テスト用':api.test?'テスト部屋（本番とは別）':'本番 · 講義用';
   $('login').hidden=false;
   $('login').onclick=async()=>{try{await api.authSDK.signInWithPopup(api.auth,new api.authSDK.GoogleAuthProvider());await authorized();}catch(e){status(e.message);}};
   if(api.auth.currentUser)await authorized();else status('先生のアカウントでログインしてください。');
